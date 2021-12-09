@@ -3,7 +3,6 @@ package pcache
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
