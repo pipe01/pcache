@@ -44,7 +44,7 @@ func (pcache *PCache) PSet(key string, value []byte) {
 }
 
 //PGet - to get value
-func (pcache *PCache) PGet(key string) ([]byte, error) {
+func (pcache *PCache) PGet(key string) ([]byte, bool) {
 	pcache.RLock()
 	// find key in memory
 	value, ok := pcache.cache[key]
@@ -56,11 +56,11 @@ func (pcache *PCache) PGet(key string) ([]byte, error) {
 	} else if pcache.isFileExist(key) {
 		value := pcache.loadFromFile(key)
 		pcache.RUnlock()
-		return value, nil
+		return value, true
 	}
 	pcache.RUnlock()
-	// return error
-	return nil, errors.New("Key not found")
+
+	return nil, false
 }
 
 //PRemove - to delete key
