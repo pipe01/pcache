@@ -51,7 +51,7 @@ func (pcache *PCache) PGet(key string) ([]byte, bool) {
 	if ok {
 		pcache.cacheCount[key] = pcache.cacheCount[key] + 1
 		pcache.RUnlock()
-		return value, nil
+		return value, true
 		// find key in disk
 	} else if pcache.isFileExist(key) {
 		value := pcache.loadFromFile(key)
